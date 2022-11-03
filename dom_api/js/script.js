@@ -36,6 +36,11 @@ console.log(innerParagraph);
 innerParagraph.style.backgroundColor = 'green';
 
 
+let allParagraphs = document.querySelectorAll('p');
+console.log(allParagraphs);
+console.log(Array.from(allParagraphs));
+
+
 
 /* --------------- Auf Kind-Elemente zugreifen ----------------------- */
 
