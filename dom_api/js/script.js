@@ -59,6 +59,9 @@ console.log(articleChildNodes);
 // }
 Array.from(articleChildren).forEach(child => child.style.backgroundColor = 'orange');
 
+
+/* --------------- Auf Eltern-Elemente zugreifen ----------------------- */
+
 let innerImage = article.querySelector('#inner-image');
 // parentElement holt DIREKTES Eltern-Element
 let imageParent = innerImage.parentElement;
@@ -67,3 +70,60 @@ console.log(imageParent);
 // closest sucht anhand eines uebergebenen Querys nach dem 
 // naechst-passenden Eltern-Element (kann auch mehrere Stufen hoeher sein)
 console.log(innerImage.closest('article'));
+
+
+/* --------------- Elemente pruefen ----------------------- */
+// matches gibt als Rueckgabewert zurueck, ob das entsprechende Element
+// dem uebergebenen Selektor entspricht
+let matchesSelector = innerParagraph.matches('.inner');
+console.log(matchesSelector);
+
+/* --------------- Elemente aus JS heraus stylen ----------------------- */
+// Die style Property eines jeden HTML Elements gibt uns vollen Zugriff
+// auf alle bereits aus CSS bekannten Styling-Attribute
+// ACHTUNG: In CSS ist die Worttrennung immer mit einem Bindestrich (bla-blub)
+//          in JS hingegeben als Camel Case (blaBlub)
+innerParagraph.style.backgroundColor = 'green';
+innerParagraph.style.color = 'white';
+innerParagraph.style.fontSize = '20pt';
+
+// Auch Klassen lassen sich problemlos hinzufuegen oder entfernen
+paragraph.classList.add('green-white-large');
+innerParagraph.classList.remove('inner');
+
+// Das Verstellen der ID ist auch moeglich ueber den Zugriff auf die .id Property
+innerParagraph.id = 'inner-p';
+
+// Attribute von HTML-Elementen lassen sich via getAttribute(NAME_DES_ATTRIBUTS) abrufen
+console.log(title.getAttribute('data-value'));
+// Attribute von HTML-Elementen lassen sich via setAttribute(NAME_DES_ATTRIBUTS, NEUER_WERT) veraendern
+title.setAttribute('data-value', 'thomas');
+console.log(title.getAttribute('data-value'));
+
+// Fuer data-* Attribute gibt es das dataset, 
+// das uns komfortablen Lese- u. Schreibzugriff auf diese Attribute gewaehrt
+console.log(title.dataset);
+console.log(title.dataset.value);
+title.dataset.value = 'Matze';
+console.log(title.dataset.value);
+
+
+/* --------------- Elemente in JS erstellen ----------------------- */
+// Mit document.createElement(NAME_DES_ELEMENTS) kann ein neues HTML-Element erstellt werden
+let newSpan = document.createElement('span');
+console.log(newSpan);
+
+// Das neue Element laesst sich natuerlich auch befuellen und stylen
+newSpan.innerText = 'Hallo Welt!';
+newSpan.style.backgroundColor = 'red';
+newSpan.classList.add('inner-span');
+
+// Mit appendChild(NEUES_ELEMENT) laesst sich das zuvor erstellte Element als Kind-Element anhaengen
+innerParagraph.appendChild(newSpan);
+
+// Mit insertBefore(NEUES_ELEMENT, REFERENZ_ELEMENT) laesst sich das zuvor erstellte Element
+// als Kind-Element vor einem Referenz-Element einfuegen
+article.insertBefore(newSpan, innerParagraph);
+
+
+
