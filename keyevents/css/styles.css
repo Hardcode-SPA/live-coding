@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#colors {
+    margin-top: 5em;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+
+.color-box {
+    width: 100px;
+    height: 100px;
+    border: 2px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 18pt;
+    color: white;
+}
+
+.highlight {
+    opacity: 0.7;
+    border-color: gold;
+    box-shadow: 0px 0px 50px -1px #DDC02C;
+}
+
+#red {
+    background-color: red;
+}
+#green {
+    background-color: green;
+}
+#blue {
+    background-color: blue;
+}
+#black {
+    background-color: black;
+}
