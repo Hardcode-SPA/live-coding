@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.messages-container {
+    width: 600px;
+    border: 1px solid black;
+    padding: 3em;
+}
+
+.message-box {
+    padding: 0.5em;
+    border: green 1px solid;
+    margin-bottom: 1em;
+    /* background-color: olive; */
+}
+
+.message-box > span {
+    color: crimson;
+    position: relative;
+    top: -1.5em;
+    left: 96%;
+}
+
+.messages-container > h3 {
+    visibility: hidden;
+}
