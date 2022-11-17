@@ -5,14 +5,27 @@ let avatarImg = document.querySelector('#avatar');
 
 // Fuege dem file-Input einen EventListener (change) hinzu
 avatarInput.addEventListener('change', evt => {
-    // Extrahiere Dateinamen aus dem Event
-    let fileName = evt.target.value.replace('C:\\fakepath\\', '');
-    
-    // Erstelle Pfad fuer das img
-    let srcUrl = 'img/' + fileName;
+    // Extrahiere die Datei aus dem Filepicker
+    let file = evt.target.files[0];
 
-    // Setze src-Pfad im img
-    avatarImg.src = srcUrl;
-    // Lasse img wieder anzeigen
-    avatarImg.hidden = false;
+    // Erstelle neuen FileReader, der dazu in der Lage ist, Dateien einzulesen
+    let reader = new FileReader();
+
+    // Fuege dem FileReader einen EventListener (load) hinzu
+    // das load-Event wird gefeuert, wenn der FileReader die Datei erfolgreich eingelesen hat
+    reader.addEventListener("load", (evt) => {
+        // Konvertiere die eingelesene Datei mittels des FileReaders
+        // in einen Base64-kodierten String
+        // Und hinterlege diesen Base64 String als image.src des Profilbilds
+        avatarImg.src = reader.result;
+
+        // Lasse img wieder anzeigen
+        avatarImg.hidden = false;
+    }, false);
+
+    // Wenn Datei im Filepicker vorhanden
+    if (file) {
+        // Lese mittels FileReader Datei ein
+        reader.readAsDataURL(file);
+    }
 });
