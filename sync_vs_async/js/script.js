@@ -45,24 +45,48 @@ let workerBtn = document.querySelector('#btn-start-worker');
 workerBtn.addEventListener('click', evt => {
     console.time();
     // ----------------------------------------------
-    let result = worker();
+    worker().then(result => {
+        let resultParagraph = document.createElement('P');
+        resultParagraph.textContent = result;
+        document.body.append(resultParagraph);
+        console.log('done');
+    });
 
-    let resultParagraph = document.createElement('P');
-    resultParagraph.textContent = result;
-    document.body.append(resultParagraph);
+    // let result = worker(result => {
+    //     let resultParagraph = document.createElement('P');
+    //     resultParagraph.textContent = result;
+    //     document.body.append(resultParagraph);
+    // });
+
+    // Synchron auf ergebnis warten
+    // let result = worker();
+    // let resultParagraph = document.createElement('P');
+    // resultParagraph.textContent = result;
+    // document.body.append(resultParagraph);
     // ----------------------------------------------
     console.timeEnd();
+
+    console.log('Andere Arbeit');
 });
 
 function worker() {
-    let result = 0;
-    for (let i = 0; i < 1000; i++) {
-        for (let j = 0; j < 1000; j++) {
-            for (let k = 0; k < 1000; k++) {
-                result += Math.random() * i * j * k;
+    let promise = new Promise((resolve, reject) => {
+        let result = 0;
+        for (let i = 0; i < 1000; i++) {
+            for (let j = 0; j < 1000; j++) {
+                for (let k = 0; k < 1000; k++) {
+                    result += Math.random() * i * j * k;
+                }
             }
         }
-    }
 
-    return result;
+        resolve(result);
+    });
+
+    return promise;
+    
+
+    // callback(result);
+
+    // return result;
 }
