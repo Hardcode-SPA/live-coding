@@ -39,17 +39,35 @@ function handleFormSubmit(evt) {
 // Haenge EventListener (submit) an Formular an mit handleFormSubmit als Handler
 form.addEventListener('submit', handleFormSubmit);
 
-
 let workerBtn = document.querySelector('#btn-start-worker');
 
 workerBtn.addEventListener('click', evt => {
+
+    console.log(Math.round(Math.random() * 123));
+
     console.time();
     // ----------------------------------------------
-    worker().then(result => {
+    new Promise((resolve, reject) => {
+        let result = 123;
+        setTimeout(() => {
+            if (Math.round(Math.random() * result) % 2 === 0) {
+                resolve('Erfolg!')
+            } else {
+                reject('Fehler!');
+            }
+        }, 4000);
+    }).then(result => {
         let resultParagraph = document.createElement('P');
         resultParagraph.textContent = result;
+        resultParagraph.style.color = 'green';
         document.body.append(resultParagraph);
-        console.log('done');
+        console.log('done with success');
+    }).catch(error => {
+        let resultParagraph = document.createElement('P');
+        resultParagraph.textContent = error;
+        resultParagraph.style.color = 'red';
+        document.body.append(resultParagraph);
+        console.log('done with error');
     });
 
     // let result = worker(result => {
@@ -70,23 +88,43 @@ workerBtn.addEventListener('click', evt => {
 });
 
 function worker() {
-    let promise = new Promise((resolve, reject) => {
-        let result = 0;
-        for (let i = 0; i < 1000; i++) {
-            for (let j = 0; j < 1000; j++) {
-                for (let k = 0; k < 1000; k++) {
-                    result += Math.random() * i * j * k;
-                }
-            }
-        }
+    let result = 123;
+    // for (let i = 0; i < 1000; i++) {
+    //     for (let j = 0; j < 1000; j++) {
+    //         for (let k = 0; k < 1000; k++) {
+    //             result += Math.random() * i * j * k;
+    //         }
+    //     }
+    // }
 
-        resolve(result);
-    });
 
-    return promise;
-    
-
-    // callback(result);
-
-    // return result;
+    return result;
 }
+
+
+
+let chuckNorrisSection = document.querySelector('#chucknorris');
+chuckNorrisSection.querySelector('button').addEventListener('click', evt => {
+    let fetchPromise = fetch('https://api.chucknorris.io/jokes/random/');
+    // let fetchPromise = fetch('https://api.chucknorris.io/jokes/random/peter');
+    // let fetchPromise = fetch('http://peter.pan.io/');
+    fetchPromise
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+
+            let error = '';
+            if (response.status === 404) {
+                error = `404 - Seite nicht gefunden`;
+            }
+            throw new Error(error);
+        })
+        .then(data => {
+            chuckNorrisSection.querySelector('p').textContent = data.value;
+        })
+        .catch(error => {
+            chuckNorrisSection.querySelector('p').style.color = 'red';
+            chuckNorrisSection.querySelector('p').textContent = error;
+        });
+});
