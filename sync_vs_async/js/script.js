@@ -15,6 +15,8 @@ function handleFormSubmit(evt) {
     previewSection.querySelector('h1 > span').textContent = albumName;
     previewSection.querySelector('p').textContent = albumDescription;
 
+    
+
     console.time();
     Array.from(photoFiles).forEach(file => {
         let img = document.createElement('IMG');
@@ -22,10 +24,45 @@ function handleFormSubmit(evt) {
 
         img.src = URL.createObjectURL(file);
 
+        // let fileReader = new FileReader();
+        // fileReader.addEventListener('load', evt => {
+        //     img.src = evt.target.result;
+        // });
+        // fileReader.readAsDataURL(file);
+
         previewSection.appendChild(img);
     });
     console.timeEnd();
+
 }
 
 // Haenge EventListener (submit) an Formular an mit handleFormSubmit als Handler
 form.addEventListener('submit', handleFormSubmit);
+
+
+let workerBtn = document.querySelector('#btn-start-worker');
+
+workerBtn.addEventListener('click', evt => {
+    console.time();
+    // ----------------------------------------------
+    let result = worker();
+
+    let resultParagraph = document.createElement('P');
+    resultParagraph.textContent = result;
+    document.body.append(resultParagraph);
+    // ----------------------------------------------
+    console.timeEnd();
+});
+
+function worker() {
+    let result = 0;
+    for (let i = 0; i < 1000; i++) {
+        for (let j = 0; j < 1000; j++) {
+            for (let k = 0; k < 1000; k++) {
+                result += Math.random() * i * j * k;
+            }
+        }
+    }
+
+    return result;
+}
