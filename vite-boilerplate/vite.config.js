@@ -1,5 +1,7 @@
+const path = require('path');
+
 export default {
-    root: 'src',
+    root: path.resolve(__dirname, 'src'),
     build: {
         outDir: '../dist'
     }
