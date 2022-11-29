@@ -6,7 +6,7 @@ import * as bootstrap from 'bootstrap';
 
 // Import our custom JS
 import { example } from './data.js';
-
+/* -------------------------------------------------------------------------------  */
 let btn = document.createElement('button');
 btn.classList.add('btn', 'btn-primary');
 btn.textContent = 'click me';
