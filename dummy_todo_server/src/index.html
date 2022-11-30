@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    
+    <div id="app" class="container p-3">
+      <h1>Todo App</h1>
+
+      <form id="new-todo-form">
+        <div class="input-group mb-3">
+          <input autofocus type="text" class="form-control" id="input-new-todo" placeholder="What do you have todo?">
+          <button class="btn btn-outline-success" type="submit" id="btn-submit-todo">Add Todo</button>
+        </div>
+      </form>
+
+      <hr>
+
+      <ul class="list-group" id="todos-list">
+        <!-- Wird von JS befuellt -->
+      </ul>
+
+      <a class="btn" id="btn-more-todos">More</a>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
