@@ -16,13 +16,25 @@ let pageSize = 10;
 
 // Funktion zum Laden der ersten Todopage
 async function getTodos() {
+
+    /* 
+        fetchPagedTodos liefert einen Promise als Rueckgabewert
+        auf den wir wie gewohnt reagieren koennen.
+        Hier wird der Promise ganz normal aufgerufen,
+        weshalb es Sinn macht diesen und weiteren davon abhaengigen Code
+        in ein .then-Callback einzukapseln,
+        waehrend wir in einem .catch-Callback 
+        das reject des Promises 'catchen' koennen
+    */
     // Hole erste Page der Daten
-    let todosPage = await fetchPagedTodos(pageSize, 0).catch(err => {
-        console.log(err);
-    });
-    
-    // render alle erhaltenen Todos
-    renderTodos(todosPage);
+    fetchPagedTodos(pageSize, 0)
+        .then(todosPage => {
+            // render alle erhaltenen Todos
+            renderTodos(todosPage);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 // Initial einmal am Anfang ausfuehren 
 // damit beim Laden der Page schon Todos da sind
@@ -70,12 +82,25 @@ function createTodoItem(todo) {
     deleteBtn.classList.add('btn', 'btn-outline-danger');
     deleteBtn.textContent = 'Delete';
     deleteBtn.addEventListener('click', async evt => {
-        let todos = await deleteTodo(todo.prio).catch(err => {
-            console.log(err);
-        });
 
-        // Noch mal erste Page an Todos holen
-        getTodos();
+        /* 
+            deleteTodo liefert einen Promise als Rueckgabewert
+            auf den wir wie gewohnt reagieren koennen.
+            Hier wird der Promise ganz normal aufgerufen,
+            weshalb es Sinn macht diesen und weiteren davon abhaengigen Code
+            in ein .then-Callback einzukapseln,
+            waehrend wir in einem .catch-Callback 
+            das reject des Promises 'catchen' koennen
+        */
+        deleteTodo(todo.prio)
+            .then(todos => {
+                // Noch mal erste Page an Todos holen
+                getTodos();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
     });
     todoItem.appendChild(deleteBtn);
 
@@ -89,13 +114,24 @@ function createTodoItem(todo) {
         let todoText = todoItem.childNodes[1].nodeValue;
         let isDone = !todoItem.classList.contains('strike-through');
 
-        // Sende PUT Anfrage an API zum Abhaken
-        let todos = await updateTodo(todoId, todoText, isDone).catch(err => {
-            console.log(err);
-        });
+        /* 
+            updateTodo liefert einen Promise als Rueckgabewert
+            auf den wir wie gewohnt reagieren koennen.
+            Hier wird der Promise mit await aufgerufen,
+            weshalb es Sinn macht diesen und weiteren davon abhaengigen Code
+            in einen try-Block einzukapseln,
+            waehrend wir in einem catch-Block das reject des Promises 'catchen' koennen
+        */
+        try {
+            // Sende PUT Anfrage an API zum Abhaken
+            let todos = await updateTodo(todoId, todoText, isDone);
 
-        // Hole und render alle Todos im DOM
-        getTodos();
+            // Hole und render alle Todos im DOM
+            getTodos();
+
+        } catch (error) {
+            console.error(error.message);
+        }
     });
 
     // Gebe erstelles Listitem zurueck
@@ -119,18 +155,24 @@ todoForm.addEventListener('submit', async evt => {
     // Setze Input zurueck
     todoInput.value = '';
 
-    // POST Anfrage an API zum Anlegen des neuen Todos
-    // Server liefert uns in der Antwort als Payload
-    // die gesamte Liste aller Todos mit
-    let todos = await postNewTodo(todoText).catch(err => {
+    /* 
+        postNewTodo liefert einen Promise als Rueckgabewert
+        auf den wir wie gewohnt reagieren koennen.
+        Hier wird der Promise mit await aufgerufen,
+        weshalb es Sinn macht diesen und weiteren davon abhaengigen Code
+        in einen try-Block einzukapseln,
+        waehrend wir in einem catch-Block das reject des Promises 'catchen' koennen
+    */
+    try {
+        // POST Anfrage an API zum Anlegen des neuen Todos
+        // Server liefert uns in der Antwort als Payload
+        // die gesamte Liste aller Todos mit
+        let todos = await postNewTodo(todoText);
+        // Hole und render alle Todos im DOM
+        getTodos();
+
+    } catch (error) {
         // TODO Fehlerbehandlung fuer doppelte Todos
         console.log(err);
-    });
-
-    // Hole und render alle Todos im DOM
-    getTodos();
-
+    }
 });
-
-
-// TODO loeschen von Todos
