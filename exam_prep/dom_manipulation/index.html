@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom Manipulation</title>
+</head>
+<body>
+
+    <p>
+        Lorem ipsum dolor sit amet <span>consectetur</span> adipisicing elit. Cum impedit natus dolorum vero dignissimos nemo enim culpa quibusdam placeat, nostrum facere earum dolores adipisci atque eos optio magni iure! Laborum!
+    </p>
+    <div id="week-days">
+        <h2>Wochentage</h2>
+        <ul>
+            <li class="week-day">Montag</li>
+            <li class="week-day">Dienstag</li>
+            <li class="week-day">Mittwoch</li>
+            <li class="week-day">Donnerstag</li>
+            <li class="week-day">Freitag</li>
+            <li class="week-day">Samstag</li>
+            <li class="week-day">Sonntag</li>
+        </ul>
+    </div>
+
+
+    <script>
+        /*
+            Task 1:
+            Aendere die Schriftfarbe des Textes im p-Tag
+            mittels Javascript zu rot.
+        */
+        let paragraph = document.querySelector('p');
+        paragraph.style.color = 'red';
+
+        /* 
+            Task 2:
+            Erhoehe die Schriftgroesse des span-Tags innerhalb
+            des p-Tags mittels Javascript auf 22pt und gebe dem
+            p-Tag einen gruenen Rahmen.
+        */
+        paragraph.style.border = '1px solid green';
+        let pInnerSpan = document.querySelector('p > span');
+        pInnerSpan.style.fontSize = '22pt';
+
+        /* 
+            Task 3:
+            Fuege dem Dokument aus Javascript heraus einen Button mit der
+            Aufschrift 'Click me' hinzu.
+        */
+        let clickButton = document.createElement('button');
+        clickButton.textContent = 'Click me';
+        document.body.appendChild(clickButton);
+
+        /* 
+            Task 4:
+            Hole dir per Javascript alle Listitems fuer Wochentage
+            mittels ihrer Klasse 'week-day'.
+            Laufe per Schleife ueber die Elemente und fuege an den Anfang
+            des Textes innerhalb des Listitems die Zahlen von 1-7 an.
+        */
+        let weekdays = document.querySelectorAll('.week-day');
+        weekdays.forEach((day, index) => {
+            // Einfach vorne anfuegen
+            day.prepend(index + 1 + ' ');
+            
+            // ODER
+            // bisherigen Text speichern
+            // let dayString = day.textContent;
+            // Text zusammengesetzt einfuegen
+            // day.textContent = `${index+1} ${dayString}`;
+        });
+
+        /* 
+            Task 5:
+            Verstecke mittels Javascript das div-Element in dem sich
+            die Wochentagsliste befindet.
+        */
+        let listContainer = document.querySelector('#week-days');
+        listContainer.hidden = true;
+    </script>
+</body>
+</html>

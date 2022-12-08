@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+
+    <style>
+        .active {
+            background-color: rgb(56, 59, 255);
+            border: solid red;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure aperiam est fuga accusantium veniam, ipsam asperiores quam magni voluptatum error minima, fugit similique? Accusantium sequi provident perferendis unde sit amet!
+    </p>
+    <button id="hide-btn">Hide</button>
+
+
+
+    <p id="hoverable">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus nesciunt labore animi fugiat eveniet tempora repellendus eos porro optio blanditiis, odio perferendis quas facere id ea quae commodi quod temporibus!
+    </p>
+
+    <button id="prompt-me">Prompt me</button>
+
+    <script>
+        /* 
+            Task 1:
+            Fuege dem Button mit der ID 'hide-btn' einen Handler hinzu,
+            der beim Klick darauf, den Paragraph ueber ihm versteckt.
+        */
+        let paragraph = document.querySelector('p');
+        document.getElementById('hide-btn').addEventListener('click', event => {
+            paragraph.hidden = true;
+        });
+
+
+        /* 
+            Task 2:
+            Schreibe Handler, mit denen der zweite Paragraph mit der ID 'hoverable'
+            die Klasse 'active' hinzugefuegt bekommt, wenn sich der Mauszeiger
+            darueber findet.
+            Wenn der Mauszeiger den Paragraphen verlaesst, soll ihm die active-Klasse
+            wieder entzogen werden.
+        */
+        let hoverable = document.getElementById('hoverable');
+        hoverable.addEventListener('mouseenter', evt => {
+            hoverable.classList.add('active');
+        });
+        hoverable.addEventListener('mouseleave', evt => {
+            hoverable.classList.remove('active');
+        });
+
+
+        /* 
+            Task 3:
+            Fuege dem Button mit der ID 'prompt-me' einen Handler hinzu,
+            der bei Klick auf den Button einen Promt oeffnet, in den ich etwas eingeben kann.
+            Danach soll meine Eingabe in das Prompt per Alert angezeigt werden.
+        */
+        let promptBtn = document.querySelector('#prompt-me');
+        promptBtn.addEventListener('click', evt => {
+            // Zeige Prompt zur Eingabe an
+            let someText = prompt('Schreibe eine Kleinigkeit');
+            // Gebe eingegebenen Text aus dem Prompt per alert aus
+            alert(someText);
+        });
+    </script>
+</body>
+</html>
