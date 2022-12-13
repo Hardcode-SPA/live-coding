@@ -1,0 +1,18 @@
+.App > h1 {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
+
+input {
+  width: 60%;
+  padding: 0.2em;
+  font-size: 16pt;
+}
+
+.add-todo-btn {
+  font-size: 16pt;
+  padding: 0.2em;
+}
