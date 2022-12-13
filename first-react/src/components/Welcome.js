@@ -37,12 +37,16 @@ class Welcome extends React.Component {
     }
   
     // ChangeHandler fuer Eingaben in das Eingabefeld der View
-    handleInput(evt) {
+    // public class field syntax fuer Methode -> Loest das this-Bindungsproblem
+    handleInput = (evt) => {
       // Gebe Aenderungen fuer den lokalen State durch
       this.setState({
         inputValue: evt.target.value
       });
   
+      // Rufe das durch von der Eltern-Komponente 
+      // durch die Props durchgegebene callback auf
+      // und gebe Daten durch
       this.props.parentCallback(evt.target.value);
     }
   
@@ -59,13 +63,54 @@ class Welcome extends React.Component {
     // Render-Methode (muss es immer geben)
     // Gibt die View in JSX-Notation wieder
     render() {
+
+      let header = <h1>Hello, {this.props.name}! I heard, you're {this.props.age}...</h1>;
+
+
+      function NiceWeather(props) {
+        return <h2>Gutes Wetter heute, oder {props.name}?</h2>
+      }
+
+      function BadWeather(props) {
+        return <h2>Schietwedder heute, oder {props.name}?</h2>
+      }
+
+      let isGoodWeather = false;
+
+      // Bedingte Darstellung mit Hilfe der ternaeren Operators
+      let weatherGreeting = isGoodWeather ? <NiceWeather name="Peter" /> : <BadWeather name="Peter" />
+
+
+      function Greeting(props) {
+        if (!props.isLoggedIn) {
+          return null;
+        }
+
+        return (
+          <h2>Hello there!</h2>
+        );
+      }
+
+
+      let ingredients = [
+        "Tomatoes",
+        "Potatoes",
+        "Water",
+        "Oil"
+      ];
+
+      // Generieren eines Arrays von JSX Elementen. 
+      // WICHTIG: Die Elemente benoetigen einen eindeutigen Key. 
+      // Moeglichst NICHT der Index im Array
+      let ingredientItems = ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>);
+
       return (
         <div>
           {/* Definiere h1, in das wir Daten aus den uns uebergebenen Props einfuegen */}
-          <h1>Hello, {this.props.name}! I heard, you're {this.props.age}...</h1>
+          {header}
   
           {/* Definiere input, dessen onChange auf handleInput-Methode der Klasse verweist */}
-          <input type="text" onChange={this.handleInput}/>
+          <input type="text" value={this.state.inputValue} onChange={this.handleInput} />
   
           {/* Zeige im Span Daten aus dem veraenderbaren lokalen State an */}
           <span>{this.state.inputValue}</span>
@@ -75,6 +120,18 @@ class Welcome extends React.Component {
             <span>{this.state.counter}</span>
           </p>
           <button onClick={this.handlePlusClick}>+</button>
+
+
+          {/* {weatherGreeting} */}
+
+          {/* Bedingte Darstellung mit Hilfe des logischen UND Operators
+          Wenn der erste der Bedingung false ist, wird der zweite nicht angezeigt */}
+          {isGoodWeather && <NiceWeather name="Peter" />}
+
+          <Greeting isLoggedIn={true} />
+
+          {/* Einfuegen eines Arrays von JSX Elementen */}
+          <ul>{ingredientItems}</ul>
         </div>
       );
     }

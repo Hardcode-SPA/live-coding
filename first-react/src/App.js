@@ -10,11 +10,11 @@ function App() {
   }
 
   return (
-    // JSX - sieht aus wie HTML, ist in Wirklichkeit aber Javascript
+    // {/* // JSX - sieht aus wie HTML, ist in Wirklichkeit aber Javascript */}
     <div className="App">
-      <Welcome name="Peter" age="28" parentCallback={printWelcomeInput} />
-      <Welcome name="Peter" age="28" parentCallback={printWelcomeInput} />
-      <Welcome name="Peter" age="28" parentCallback={printWelcomeInput} />
+      <Welcome name="Anneliese" age="28" parentCallback={printWelcomeInput} />
+      <Welcome name="Peter" age="35" parentCallback={printWelcomeInput} />
+      <Welcome name="Ewald" age="12" parentCallback={printWelcomeInput} />
     </div>
   );
 }
