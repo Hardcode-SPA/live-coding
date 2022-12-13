@@ -16,6 +16,8 @@ class App extends Component {
 
     /* ---------- this-Bindings ---------- */
     this.handleNewTodo = this.handleNewTodo.bind(this);
+    this.handleCheckTodo = this.handleCheckTodo.bind(this);
+    this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
   }
 
   // Submithandler fuer das TodoForm
@@ -30,6 +32,37 @@ class App extends Component {
     });
   }
 
+
+  // Handler zum Abhaken von Todo Objekten
+  handleCheckTodo(checkedTodo) {
+    this.setState((state) => {
+      let todos = state.todos;
+
+      let targetTodoIndex = todos.findIndex(todo => todo.todo === checkedTodo.todo);
+
+      todos[targetTodoIndex] = checkedTodo;
+
+      return {
+        todos: todos
+      };
+    });
+  }
+
+
+  handleDeleteTodo(deletedTodo) {
+    this.setState(state => {
+      let todos = [...state.todos];
+
+      let targetTodoIndex = todos.findIndex(todo => todo.todo === deletedTodo.todo);
+
+      todos.splice(targetTodoIndex, 1);
+
+      return {
+        todos: todos
+      };
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -38,8 +71,16 @@ class App extends Component {
         {/* Formular Komponente zum Hinzufuegen von Todos */}
         <TodoForm newTodoCallback={this.handleNewTodo} />
 
-        {/* List Komponente zum Anzeigen der im State gespeicherten Todos */}
-        <TodoList todos={this.state.todos} />
+        {/* 
+          Listen Komponente zum Anzeigen der im State gespeicherten Todos.
+          Erhaelt Array mit Todo Objekten als Prop uebergeben.
+          Erhaelt Callback-Handler als Prop uebergeben.
+        */}
+        <TodoList 
+          todos={this.state.todos} 
+          handleCheckTodo={this.handleCheckTodo} 
+          handleDeleteTodo={this.handleDeleteTodo}
+        />
       </div>
     );
   }
