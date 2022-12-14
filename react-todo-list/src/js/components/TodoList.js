@@ -1,40 +1,13 @@
-import {Component} from "react";
-import TodoItem from "./TodoItem";
 
-class TodoList extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            /* Might be deleted */
-        };
-
-        /* ---------- this-Bindings ---------- */
-
-    }
-
-
-    render() {
-        console.log(this.props.todos);
-
-        /* Erstelle Array von TodoItem Komponenten */
-        let todoItems = this.props.todos.map(todo => {
-            // Jede TodoItem Komponente erhaelt das entsprechende Todo Objekt als Prop
-            // und bekommt den Callback-Handler aus den Props von TodoList ebenfalls als Prop uebergeben
-            return <TodoItem 
-                key={todo.todo} 
-                todo={todo} 
-                handleCheckTodo={this.props.handleCheckTodo}
-                handleDeleteTodo={this.props.handleDeleteTodo}
-            />;
-        });
-
-        return (
-            <div className="todolist">
-                {todoItems}
-            </div>
-        );
-    }
+// Komponente zur Anzeige der Todo Items
+// Erhaelt seine Kind-Elemente per Props
+function TodoList(props) {
+    return (
+        <div className="todolist">
+            {/* Zeige, die uebergebenen Kind-Elemente an */}
+            {props.children}
+        </div>
+    );
 }
 
 export default TodoList;

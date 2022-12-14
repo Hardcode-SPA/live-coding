@@ -2,6 +2,7 @@ import '../css/App.css';
 import { Component } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+import TodoItem from './components/TodoItem';
 
 class App extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class App extends Component {
     });
   }
 
-
+  // Handler zum Loeschen von Todo Objekten
   handleDeleteTodo(deletedTodo) {
     this.setState(state => {
       let todos = [...state.todos];
@@ -64,6 +65,18 @@ class App extends Component {
   }
 
   render() {
+    /* Erstelle Array von TodoItem Komponenten */
+    let todoItems = this.state.todos.map(todo => {
+      // Jede TodoItem Komponente erhaelt das entsprechende Todo Objekt als Prop
+      // und bekommt den Callback-Handler aus den Props von TodoList ebenfalls als Prop uebergeben
+      return <TodoItem 
+          key={todo.todo} 
+          todo={todo} 
+          handleCheckTodo={this.handleCheckTodo}
+          handleDeleteTodo={this.handleDeleteTodo}
+      />;
+    });
+
     return (
       <div className="App">
         <h1>Todo List</h1>
@@ -80,7 +93,9 @@ class App extends Component {
           todos={this.state.todos} 
           handleCheckTodo={this.handleCheckTodo} 
           handleDeleteTodo={this.handleDeleteTodo}
-        />
+        >
+          {todoItems}
+        </TodoList>
       </div>
     );
   }
