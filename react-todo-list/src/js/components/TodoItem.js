@@ -1,5 +1,3 @@
-// import { Component } from "react";
-
 
 function TodoItem(props) {
 

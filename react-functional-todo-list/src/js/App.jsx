@@ -1,24 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../css/App.css';
 import TodoList from './components/TodoList';
 import TodoItem from './components/TodoItem';
 import TodoForm from './components/TodoForm';
 
+
 function App() {
-  let [todos, setTodos] = useState([
-    {
-      todo: 'React Hooks lernen',
-      done: false
-    },
-    {
-      todo: 'Dick Pause machen',
-      done: false
-    },
-    {
-      todo: 'Ferien vorbereiten',
-      done: true
-    }
-  ]);
+  // Statevariable fuers Speichern der Todos
+  let [todos, setTodos] = useState(fetchFromLocalStorage());
+
+  // Hook zum Ausfuehren von Seiten-Effekt-Code bei Aenderung im Lifecycle
+  useEffect(() => {
+    // Speichere die bisherigen Todos mit allem drum und dran im localStorage
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]); // Zweiter Parameter gibt einen Filter an. Der Code laeft nur, wenn der Filter erfuellt ist
 
 
   // Funktion zum Speichern eines neuen Todos
@@ -91,6 +86,18 @@ function App() {
         </TodoList>
     </div>
   );
+}
+
+
+
+// Hilfsfunktion zum Holen von persistent gespeicherten Todos
+function fetchFromLocalStorage() {
+  // Hole im localStorage gespeicherte Todos
+  let storedTodos = JSON.parse(localStorage.getItem('todos'));
+  // return storedTodos !== null ? storedTodos : [];
+
+  // return mit nullish operator (wenn linke Seite null oder undefined, returne recht seite)
+  return storedTodos ?? [];
 }
 
 export default App;

@@ -89,11 +89,7 @@ class App extends Component {
           Erhaelt Array mit Todo Objekten als Prop uebergeben.
           Erhaelt Callback-Handler als Prop uebergeben.
         */}
-        <TodoList 
-          todos={this.state.todos} 
-          handleCheckTodo={this.handleCheckTodo} 
-          handleDeleteTodo={this.handleDeleteTodo}
-        >
+        <TodoList todos={this.state.todos}>
           {todoItems}
         </TodoList>
       </div>
