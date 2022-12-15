@@ -1,0 +1,45 @@
+.App > h1 {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
+
+input {
+  width: 60%;
+  padding: 0.2em;
+  font-size: 16pt;
+}
+
+.add-todo-btn {
+  font-size: 16pt;
+  padding: 0.2em;
+}
+
+
+.todolist {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.todoitem {
+  width: 100%;
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.todoitem > span {
+  display: inline-block;
+}
+
+.todoitem button {
+  padding: 0.5em;
+}
+
+
+.done {
+  text-decoration: line-through;
+  color: grey;
+}
