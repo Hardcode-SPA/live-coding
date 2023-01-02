@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.wobble {
+  animation: wobble 0.5s;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateX(0px);
+  }
+
+  25% {
+    transform: translateX(-10px);
+  }
+
+  50% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
