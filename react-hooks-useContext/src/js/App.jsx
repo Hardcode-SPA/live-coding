@@ -33,6 +33,8 @@ function App() {
           <h1 className='text-4xl text-center py-9'>Hallo Welt!</h1>
           <button className={theme} onClick={toggleTheme}>Toggle Theme</button>
 
+          <h2>Im Povider</h2>
+
           <Card
             // theme={theme}
             width='350px'
@@ -42,6 +44,22 @@ function App() {
             bodyText='Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio dicta ullam expedita eveniet quasi quidem voluptas debitis, recusandae hic voluptatibus ipsum exercitationem magni quo quam error blanditiis rerum! Natus, fuga!'
           />
         </ThemeContext.Provider>
+
+
+        <h2>Ausserhalb des Poviders</h2>
+        {/* 
+          Diese Komponente kann nur den Initialwert
+          des Context konsumieren, Aenderungen kriegt sie nicht mit,
+          weil sie ausserhalb des Providers liegt.
+        */}
+        <Card
+            // theme={theme}
+            width='350px'
+            // height='500px'
+            image='https://picsum.photos/250/200'
+            titleText='Hallo Welt'
+            bodyText='Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio dicta ullam expedita eveniet quasi quidem voluptas debitis, recusandae hic voluptatibus ipsum exercitationem magni quo quam error blanditiis rerum! Natus, fuga!'
+        />
       </div>
     </div>
   );
