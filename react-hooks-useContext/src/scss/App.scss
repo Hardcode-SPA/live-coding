@@ -1,0 +1,57 @@
+
+body {
+  div.container {
+    background-color: lightgrey;
+  }
+
+  h1 {
+    color: black;
+  }
+
+  button {
+    border: 1px solid darkgrey;
+    padding: 0.2em;
+    border-radius: 4px;
+    background-color: grey;
+    color: white;
+  }
+
+  button:active {
+    background-color: rgb(156, 154, 154);
+  }
+
+
+  .card {
+    background-color: white;
+    width: 350px;
+    min-height: fit-content;
+    border: 1px solid grey;
+    border-radius: 8px;
+    padding: 1em;
+
+    h3 {
+      font-size: 24pt;
+      text-align: center;
+    }
+
+    img {
+      margin: 0 auto;
+    }
+
+    p {
+      margin-top: 0.5em;
+      text-align: justify;
+    }
+  }
+
+
+  .dark {
+    color: white;
+    background-color: rgb(37, 37, 37);
+  }
+
+  .light {
+    color: black;
+    background-color: white;
+  }
+}
