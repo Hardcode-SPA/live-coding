@@ -39,6 +39,7 @@ function App() {
       try {
         // Ausfuehrung fetch fuer einen GET Request (braucht keine Options, weil GET)
         let response = await fetch(todoUrl);
+        
         if (!response.ok) {
           let errObj = {
             status: response.status,

@@ -1,0 +1,18 @@
+
+body {
+  div.container {
+    background-color: lightgrey;
+  }
+
+  h1 {
+    color: black;
+  }
+
+  button, input {
+    border: 1px solid black;
+  }
+
+  button:disabled {
+    opacity: 0.6;
+  }
+}
