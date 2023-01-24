@@ -1,0 +1,16 @@
+
+body {
+
+  div.container {
+    background-color: lightgrey;
+  }
+
+  h1 {
+    color: black;
+  }
+
+  button:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+}
